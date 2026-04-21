@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <title>Simulador de Prestaciones 2026</title>
-        <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main>
@@ -29,42 +28,38 @@
 
             <label for="numeroDocumento">Número de Documento:</label>
             <input type="number" id="numeroDocumento">
+ <hr>
 
-                                                                                                                                                                                                                                                                <hr>
+        <h3>2. Información Salarial</h3>
+            <label for="salario">Salario (COP):</label>
+            <input type="number" id="salario" placeholder="0">
 
-                                                                                                                                                                                                                                                                            <h3>2. Información Salarial</h3>
-                                                                                                                                                                                                                                                                                        <label for="salario">Salario (COP):</label>
-                                                                                                                                                                                                                                                                                                    <input type="number" id="salario" placeholder="0">
+            <label for="comisiones">Comisiones (COP):</label>
+            <input type="number" id="comisiones" placeholder="0">
 
-                                                                                                                                                                                                                                                                                                                <label for="comisiones">Comisiones (COP):</label>
-                                                                                                                                                                                                                                                                                                                            <input type="number" id="comisiones" placeholder="0">
+  <label for="totalHorasExtra">Total Horas Extra (COP):</label>
+            <input type="number" id="totalHorasExtra" placeholder="0">
 
-                                                                                                                                                                                                                                                                                                                                        <label for="totalHorasExtra">Total Horas Extra (COP):</label>
-                                                                                                                                                                                                                                                                                                                                                    <input type="number" id="totalHorasExtra" placeholder="0">
+  <label for="nivelRiesgo">Nivel de Riesgo ARL:</label>
+            <select id="nivelRiesgo">
+            <option value="Mínimo">I - Mínimo</option>
+                 <option value="Bajo">II - Bajo</option>
+            <option value="Medio">III - Medio</option>
+            <option value="Alto">IV - Alto</option>
+            <option value="Máximo">V - Máximo</option>
+                </select>
+<br><br>
+            <button type="button" onclick="realizarCalculos()">Calcular Prestaciones</button>
+            </section>
 
-                                                                                                                                                                                                                                                                                                                                                                <label for="nivelRiesgo">Nivel de Riesgo ARL:</label>
-                                                                                                                                                                                                                                                                                                                                                                            <select id="nivelRiesgo">
-                                                                                                                                                                                                                                                                                                                                                                                            <option value="Mínimo">I - Mínimo</option>
-                                                                                                                                                                                                                                                                                                                                                                                                            <option value="Bajo">II - Bajo</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="Medio">III - Medio</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="Alto">IV - Alto</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                            <option value="Máximo">V - Máximo</option>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </select>
+<hr>
+    <section id="resultados">
+    <h3>3. Resultados del Cálculo</h3>
+    <div id="pantallaResultados">
+    <p>Complete el formulario para ver los resultados.</p>
+</div>
+            </section>
+            </main>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <br><br>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <button type="button" onclick="realizarCalculos()">Calcular Prestaciones</button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </section>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <hr>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <section id="resultados">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <h3>3. Resultados del Cálculo</h3>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div id="pantallaResultados">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <p>Complete el formulario para ver los resultados.</p>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </section>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </main>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <script src="taller.js"></script>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </body>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </html>
+    <script src="taller.js"></script>
+</html>
