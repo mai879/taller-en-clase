@@ -2,22 +2,23 @@
 //punto1//
 
 let nombreCompleto = "";
-let edad = "";
+let edad = 0;
 let tipodeDocumento = "";
 let nùmerodeDocuemnto = ""; 
 
-//punto3//
 
-let salario = "";
-let comisiones = "";
-let totalhorasExtra = "";
-let niveldeRiesgo= "";
 
-//constantes//
-const salariominimolegalVigente = 1750905 ;
-const salariominimointegralVigente = 22761765;
+let salario = 0;
+let comisiones = 0;
+let totalhorasExtra = 0;
+let niveldeRiesgo= 1;
+
+
+const salariominimo = 1750905 ;
+const salariominimointegral = 22761765;
 const subsidiodeTrasporte = 249095;
 const uvT = 52.37;
+
 const psalud = 0.04;
 const pension = 0.04;
 const riego1= 0.522;
@@ -41,7 +42,7 @@ if (edad < 18)  {
             //se calculan obligaciones bligaciones//
             };
 
-            edad >60 ? pension: false;
+            
 
             //punto4//
             let calculoIbc =  ibc * ( salario + comisiones + totalhorasExtra);
