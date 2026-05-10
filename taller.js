@@ -1,12 +1,23 @@
+// ======================================
+// Universidad El Bosque
+// Taller Programación JavaScript
+// Simulador de Obligaciones Laborales
+// ======================================
+;)
 //Datos de usuario//
 //punto1//
 
 let nombreCompleto = "";
-let edad = "";
+let edad = 0;
 let tipodeDocumento = "";
 let nùmerodeDocuemnto = ""; 
 
-//punto3//
+nombreCompleto = prompt("Ingrese su nombre completo");
+edad = parseInt(prompt("Ingrese su edad"));
+tipoDocumento = prompt("Ingrese su tipo de documento");
+numeroDocumento = prompt("Ingrese su número de documento");
+
+//punto2//
 
 let salario = "";
 let comisiones = "";
