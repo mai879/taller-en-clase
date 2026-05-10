@@ -110,3 +110,128 @@ if (salario <= salarioMinimoLegalVigente * 2) {
 
 }
 // la verdad profe no entendi bien esta parte espero me alla quedado bien//
+
+// total devengado =la suma de estos valores //
+
+let totalDevengado =
+    salario +
+    comisiones +
+    totalHorasExtra;
+// IBC
+let IBC = totalDevengado * 0.70;
+
+// SALUD
+let salud = IBC * saludPorcentaje;
+
+// PENSIÓN
+let pension = IBC * pensionPorcentaje;
+
+
+// FONDO SOLIDARIDAD
+
+let fondoSolidaridad = 0;
+
+if (IBC >= salarioMinimoLegalVigente * 4) {
+
+    fondoSolidaridad = IBC * fondoSolidaridadPorcentaje;
+
+}
+
+
+// ARL
+
+let porcentajeARL = 0;
+
+for (let i = 0; i < riesgos.length; i++) {
+
+    if (
+        nivelRiesgo.toLowerCase() ==
+        riesgos[i].nombre.toLowerCase()
+    ) {
+
+        porcentajeARL = riesgos[i].valor;
+
+    }
+
+}
+
+let ARL = IBC * porcentajeARL;
+
+
+// RETENCIÓN EN LA FUENTE
+
+let ingresosNoConstitutivos =
+    salud +
+    pension;
+// suma la salud y la pencion
+
+let ingresoGravado =
+    totalDevengado -
+    ingresosNoConstitutivos;
+// se calcula el ingreso 
+
+let ingresoUVT = ingresoGravado / UVT;
+
+let retencionFuente = 0;
+
+
+if (ingresoUVT > 95 && ingresoUVT <= 150) {
+
+    retencionFuente =
+        ((ingresoUVT - 95) * 0.19) * UVT;
+
+}
+
+else if (ingresoUVT > 150 && ingresoUVT <= 360) {
+
+    retencionFuente =
+        (((ingresoUVT - 150) * 0.28) + 10) * UVT;
+
+}
+
+else if (ingresoUVT > 360 && ingresoUVT <= 640) {
+
+    retencionFuente =
+        (((ingresoUVT - 360) * 0.33) + 69) * UVT;
+
+}
+
+else if (ingresoUVT > 640 && ingresoUVT <= 945) {
+
+    retencionFuente =
+        (((ingresoUVT - 640) * 0.35) + 162) * UVT;
+
+}
+
+else if (ingresoUVT > 945 && ingresoUVT <= 2300) {
+
+    retencionFuente =
+        (((ingresoUVT - 945) * 0.37) + 268) * UVT;
+
+}
+
+else if (ingresoUVT > 2300) {
+
+    retencionFuente =
+        (((ingresoUVT - 2300) * 0.39) + 770) * UVT;
+
+}
+// estos else permiten que el sistema tome desiciones dependiendo de distintos casos//
+
+// deducciones
+
+let totalDeducciones =
+    salud +
+    pension +
+    fondoSolidaridad +
+    ARL +
+    retencionFuente;
+
+
+// total a pagar
+
+let totalPagar =
+    totalDevengado +
+    auxilioTransporte -
+    totalDeducciones;
+
