@@ -2,7 +2,6 @@
 // Universidad El Bosque//
 // Taller Programación JavaScript//
 // Simulador de Obligaciones Laborales//
-;)
 //Datos de usuario//
 //punto1//
 
@@ -53,5 +52,61 @@ let nivelRiesgo = "";
     totalHorasExtra = parseFloat(prompt("Ingrese el total de horas extra"));
 
 nivelRiesgo = prompt(
-    "Ingrese el nivel de riesgo: Minimo, Bajo, Medio, Alto o Maximo"
-);
+    "Ingrese el nivel de riesgo: Minimo, Bajo, Medio, Alto o Maximo" );
+
+//punto 4 //
+// calculo de obligaciones//
+
+// CONSTANTES
+
+const salarioMinimoLegalVigente = 1750905;
+const subsidioTransporte = 249095;
+const UVT = 52.37;
+
+const saludPorcentaje = 0.04;
+const pensionPorcentaje = 0.04;
+const fondoSolidaridadPorcentaje = 0.01;
+
+
+// TARIFAS ARL
+
+const riesgos = [
+
+    {
+        nombre: "Minimo",
+        valor: 0.00522
+    },
+
+    {
+        nombre: "Bajo",
+        valor: 0.01044
+    },
+
+    {
+        nombre: "Medio",
+        valor: 0.02436
+    },
+
+    {
+        nombre: "Alto",
+        valor: 0.04350
+    },
+
+    {
+        nombre: "Maximo",
+        valor: 0.06960
+    }
+
+];
+
+
+// AUXILIO TRANSPORTE
+
+let auxilioTransporte = 0;
+
+if (salario <= salarioMinimoLegalVigente * 2) {
+
+    auxilioTransporte = subsidioTransporte;
+
+}
+// la verdad profe no entendi bien esta parte espero me alla quedado bien//
