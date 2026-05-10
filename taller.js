@@ -235,3 +235,41 @@ let totalPagar =
     auxilioTransporte -
     totalDeducciones;
 
+//punto 5
+// resultados//
+console.log("Nombre: " + nombreCompleto);
+
+console.log("Documento: " + numeroDocumento);
+
+console.log("Salario: $" + salario);
+
+console.log("Ingreso Base Cotización: $" + IBC);
+
+console.log(
+    "Fórmula: " +
+    salario +
+    " + " +
+    auxilioTransporte +
+    " + " +
+    comisiones +
+    " + " +
+    totalHorasExtra
+);
+// esto me permite ver de donde salio el resultado
+
+console.log("Salud: $" + salud);
+
+console.log("Pensión: $" + pension);
+
+console.log("Fondo Solidaridad: $" + fondoSolidaridad);
+
+console.log("ARL: $" + ARL);
+
+console.log("Retención Fuente: $" + retencionFuente);
+
+console.log("Total Deducciones: $" + totalDeducciones);
+// aqui se suman todos los descuentos
+
+console.log("TOTAL A PAGAR: $" + totalPagar);
+
+// muestra cuanto dinero le queda al trabajador
