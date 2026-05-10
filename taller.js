@@ -18,6 +18,33 @@ tipoDocumento = prompt("Ingrese su tipo de documento");
 numeroDocumento = prompt("Ingrese su número de documento");
 
 //punto2//
+// validacon del perfil//
+
+if (edad < 18) {
+
+    alert("El usuario es menor de edad y no puede continuar");
+
+} else if (edad < 25) {
+
+    alert("Usuario beneficiario por cotizante");
+
+} else if (edad >= 60) {
+
+    let mesadaPensional = parseFloat(prompt("Ingrese el valor de su mesada pensional"));
+
+    const pensionPorcentaje = 0.04;
+
+    let pension = mesadaPensional * pensionPorcentaje;
+
+    console.log("Mesada pensional: $" + mesadaPensional);
+    console.log("Pensión: $" + pension);
+
+} else {
+
+
+
+
+
 
 let salario = "";
 let comisiones = "";
