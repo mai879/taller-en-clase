@@ -139,21 +139,3 @@ select:focus{
 .total h1{
     font-size:36px;
 }
-
-/* RESPONSIVE */
-
-@media(max-width:700px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .container{
-        padding:25px;
-    }
-
-    .title{
-        font-size:30px;
-    }
-
-}
