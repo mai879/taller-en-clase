@@ -1,0 +1,141 @@
+/*Estilos*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins", sans-serif;
+}
+
+body{
+    background:#1f1f1f;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+    color:white;
+}
+
+/* CONTENEDOR */
+
+.container{
+    width:100%;
+    max-width:700px;
+    background:#0f0f0f;
+    border-radius:30px;
+    padding:40px;
+    box-shadow:0 20px 40px rgba(0,0,0,.5);
+}
+
+/* TITULO */
+
+.title{
+    font-size:38px;
+    margin-bottom:10px;
+    font-weight:600;
+}
+
+.subtitle{
+    color:#999;
+    margin-bottom:40px;
+}
+
+/* FORMULARIO */
+
+.form-group{
+    margin-bottom:25px;
+}
+
+label{
+    display:block;
+    margin-bottom:10px;
+    color:#d4d4d4;
+    font-size:14px;
+    letter-spacing:1px;
+}
+
+input,
+select{
+    width:100%;
+    padding:16px;
+    border:none;
+    outline:none;
+    border-radius:14px;
+    background:#232323;
+    color:white;
+    font-size:16px;
+    transition:.3s;
+}
+
+input:focus,
+select:focus{
+    border:1px solid #ff4d4d;
+    background:#181818;
+}
+
+/* GRID */
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+/* BOTON */
+
+.btn{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:18px;
+    background:#ff4d4d;
+    color:white;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+    margin-top:20px;
+}
+
+.btn:hover{
+    transform:scale(1.02);
+    background:#ff5f5f;
+}
+
+/* RESULTADOS */
+
+.resultados{
+    margin-top:40px;
+    background:#1b1b1b;
+    padding:30px;
+    border-radius:20px;
+}
+
+.resultados h2{
+    margin-bottom:20px;
+    color:#ff4d4d;
+}
+
+.resultado-item{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid #2f2f2f;
+}
+
+.resultado-item span:first-child{
+    color:#bdbdbd;
+}
+
+.total{
+    margin-top:20px;
+    background:#ff4d4d;
+    padding:20px;
+    border-radius:18px;
+    text-align:center;
+}
+
+.total h1{
+    font-size:36px;
+}
