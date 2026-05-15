@@ -1,22 +1,47 @@
-
 // Universidad El Bosque//
 // Taller Programación JavaScript//
 // Simulador de Obligaciones Laborales//
+
 //Datos de usuario//
 //punto1//
 
 let nombreCompleto = "";
 let edad = 0;
-let tipodeDocumento = "";
-let nùmerodeDocuemnto = ""; 
+let tipoDocumento = "";
+let numeroDocumento = "";
 
+nombreCompleto = prompt("Ingrese su nombre completo");
+edad = parseInt(prompt("Ingrese su edad"));
+tipoDocumento = prompt("Ingrese su tipo de documento (RC, TI, CC, CE, PP)");
+numeroDocumento = prompt("Ingrese su número de documento (sin puntos ni comas)");
+
+// validacion nombre: solo letras y espacios //
+while (!nombreCompleto || !/^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/.test(nombreCompleto) || nombreCompleto.trim() === "") {
+    alert("Nombre inválido. Solo se permiten letras y espacios.");
     nombreCompleto = prompt("Ingrese su nombre completo");
+}
+
+// validacion edad: solo entre 0 y 100 //
+while (isNaN(edad) || edad < 0 || edad > 100) {
+    alert("Edad inválida. Ingrese un número entre 0 y 100.");
     edad = parseInt(prompt("Ingrese su edad"));
-    tipoDocumento = prompt("Ingrese su tipo de documento");
-    numeroDocumento = prompt("Ingrese su número de documento");
+}
+
+// validacion tipo de documento //
+let tiposValidos = ["RC", "TI", "CC", "CE", "PP"];
+while (!tipoDocumento || !tiposValidos.includes(tipoDocumento.toUpperCase())) {
+    alert("Tipo de documento inválido. Las opciones son: RC, TI, CC, CE, PP");
+    tipoDocumento = prompt("Ingrese su tipo de documento (RC, TI, CC, CE, PP)");
+}
+
+// validacion numero de documento: solo digitos, entre 5 y 15 caracteres //
+while (!numeroDocumento || !/^\d{5,15}$/.test(numeroDocumento)) {
+    alert("Número de documento inválido. Solo dígitos, entre 5 y 15 caracteres, sin puntos ni comas.");
+    numeroDocumento = prompt("Ingrese su número de documento (sin puntos ni comas)");
+}
 
 //punto2//
-// validacon del perfil//
+// validacion del perfil//
 
 if (edad < 18) {
 
@@ -29,6 +54,12 @@ if (edad < 18) {
 } else if (edad >= 60) {
 
     let mesadaPensional = parseFloat(prompt("Ingrese el valor de su mesada pensional"));
+
+    // validacion mesada pensional //
+    while (isNaN(mesadaPensional) || mesadaPensional <= 0) {
+        alert("Valor inválido. La mesada pensional debe ser mayor a 0.");
+        mesadaPensional = parseFloat(prompt("Ingrese el valor de su mesada pensional"));
+    }
 
     const pensionPorcentaje = 0.04;
 
@@ -48,11 +79,37 @@ let totalHorasExtra = 0;
 let nivelRiesgo = "";
 
     salario = parseFloat(prompt("Ingrese su salario"));
-    comisiones = parseFloat(prompt("Ingrese sus comisiones"));
-    totalHorasExtra = parseFloat(prompt("Ingrese el total de horas extra"));
 
-nivelRiesgo = prompt(
-    "Ingrese el nivel de riesgo: Minimo, Bajo, Medio, Alto o Maximo" );
+    // validacion salario //
+    while (isNaN(salario) || salario <= 0) {
+        alert("Salario inválido. Debe ser un número mayor a 0.");
+        salario = parseFloat(prompt("Ingrese su salario"));
+    }
+
+    comisiones = parseFloat(prompt("Ingrese sus comisiones (0 si no aplica)"));
+
+    // validacion comisiones //
+    while (isNaN(comisiones) || comisiones < 0) {
+        alert("Valor inválido. Las comisiones no pueden ser negativas.");
+        comisiones = parseFloat(prompt("Ingrese sus comisiones (0 si no aplica)"));
+    }
+
+    totalHorasExtra = parseFloat(prompt("Ingrese el total de horas extra (0 si no aplica)"));
+
+    // validacion horas extra //
+    while (isNaN(totalHorasExtra) || totalHorasExtra < 0) {
+        alert("Valor inválido. Las horas extra no pueden ser negativas.");
+        totalHorasExtra = parseFloat(prompt("Ingrese el total de horas extra (0 si no aplica)"));
+    }
+
+    let nivelesValidos = ["minimo", "bajo", "medio", "alto", "maximo"];
+    nivelRiesgo = prompt("Ingrese el nivel de riesgo: Minimo, Bajo, Medio, Alto o Maximo");
+
+    // validacion nivel de riesgo //
+    while (!nivelRiesgo || !nivelesValidos.includes(nivelRiesgo.toLowerCase())) {
+        alert("Nivel de riesgo inválido. Las opciones son: Minimo, Bajo, Medio, Alto o Maximo");
+        nivelRiesgo = prompt("Ingrese el nivel de riesgo: Minimo, Bajo, Medio, Alto o Maximo");
+    }
 
 //punto 4 //
 // calculo de obligaciones//
@@ -109,14 +166,14 @@ if (salario <= salarioMinimoLegalVigente * 2) {
     auxilioTransporte = subsidioTransporte;
 
 }
-// la verdad profe no entendi bien esta parte espero me alla quedado bien//
 
-// total devengado =la suma de estos valores //
+// total devengado = la suma de estos valores //
 
 let totalDevengado =
     salario +
     comisiones +
     totalHorasExtra;
+
 // IBC
 let IBC = totalDevengado * 0.70;
 
@@ -163,12 +220,10 @@ let ARL = IBC * porcentajeARL;
 let ingresosNoConstitutivos =
     salud +
     pension;
-// suma la salud y la pencion
 
 let ingresoGravado =
     totalDevengado -
     ingresosNoConstitutivos;
-// se calcula el ingreso 
 
 let ingresoUVT = ingresoGravado / UVT;
 
@@ -216,7 +271,6 @@ else if (ingresoUVT > 2300) {
         (((ingresoUVT - 2300) * 0.39) + 770) * UVT;
 
 }
-// estos else permiten que el sistema tome desiciones dependiendo de distintos casos//
 
 // deducciones
 
@@ -255,7 +309,6 @@ console.log(
     " + " +
     totalHorasExtra
 );
-// esto me permite ver de donde salio el resultado
 
 console.log("Salud: $" + salud);
 
@@ -268,8 +321,7 @@ console.log("ARL: $" + ARL);
 console.log("Retención Fuente: $" + retencionFuente);
 
 console.log("Total Deducciones: $" + totalDeducciones);
-// aqui se suman todos los descuentos
 
 console.log("TOTAL A PAGAR: $" + totalPagar);
 
-// muestra cuanto dinero le queda al trabajador
+}
