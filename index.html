@@ -3,64 +3,301 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liquidador de Nómina</title>
+<script src="tallerjs.js"></script>
     <link rel="stylesheet" href="styles.css">
-     <title>Simulador de Prestaciones 2026</title>
 </head>
 <body>
-    <main>
-        <h1>Simulador de Nómina y Prestaciones</h1>
-                                    <hr>
+    <div class="container">
+        <h1 class="title">Liquidador</h1>
+        <p class="subtitle">Calcula tu nómina fácilmente</p>
 
-            <section id="formulario">
-        <h3>1. Información Básica</h3>
-            <label for="nombreCompleto">Nombre Completo:</label>
-              <input type="text" id="nombreCompleto" placeholder="Ej: maicol cediel">
-            <label for="edad">Edad (años):</label>
-              <input type="number" id="edad" min="0">
+        <!-- DATOS PERSONALES -->
+        <div class="form-group">
+            <label>NOMBRE COMPLETO</label>
+            <input type="text" id="nombreCompleto" placeholder="Ej: Juan Pérez">
+            <p class="error" id="errorNombre">Solo se permiten letras y espacios.</p>
+        </div>
 
-            <label for="tipoDocumento">Tipo de Documento:</label>
+        <div class="grid">
+            <div class="form-group">
+                <label>EDAD</label>
+                <input type="number" id="edad" placeholder="Ej: 30" min="0" max="100">
+                <p class="error" id="errorEdad">Ingrese un número entre 0 y 100.</p>
+            </div>
+            <div class="form-group">
+                <label>TIPO DE DOCUMENTO</label>
                 <select id="tipoDocumento">
-            <option value="RC">RC - Registro Civil</option>
-            <option value="TI">TI - Tarjeta de Identidad</option>
-            <option value="CC">CC - Cédula de Ciudadanía</option>
-            <option value="CE">CE - Cédula de Extranjería</option>
-            <option value="PP">PP - Pasaporte</option>
+                    <option value="">Seleccione...</option>
+                    <option value="RC">RC</option>
+                    <option value="TI">TI</option>
+                    <option value="CC">CC</option>
+                    <option value="CE">CE</option>
+                    <option value="PP">PP</option>
                 </select>
+                <p class="error" id="errorTipoDoc">Seleccione un tipo de documento.</p>
+            </div>
+        </div>
 
-            <label for="numeroDocumento">Número de Documento:</label>
-            <input type="number" id="numeroDocumento">
- <hr>
+        <div class="form-group">
+            <label>NÚMERO DE DOCUMENTO</label>
+            <input type="text" id="numeroDocumento" placeholder="Sin puntos ni comas">
+            <p class="error" id="errorNumDoc">Solo dígitos, entre 5 y 15 caracteres.</p>
+        </div>
 
-        <h3>2. Información Salarial</h3>
-            <label for="salario">Salario (COP):</label>
-            <input type="number" id="salario" placeholder="0">
+        <!-- DATOS SALARIALES -->
+        <div class="form-group">
+            <label>SALARIO</label>
+            <input type="number" id="salario" placeholder="Ej: 2000000" min="0">
+            <p class="error" id="errorSalario">El salario debe ser mayor a 0.</p>
+        </div>
 
-            <label for="comisiones">Comisiones (COP):</label>
-            <input type="number" id="comisiones" placeholder="0">
+        <div class="grid">
+            <div class="form-group">
+                <label>COMISIONES</label>
+                <input type="number" id="comisiones" placeholder="0 si no aplica" min="0">
+                <p class="error" id="errorComisiones">No puede ser negativo.</p>
+            </div>
+            <div class="form-group">
+                <label>HORAS EXTRA</label>
+                <input type="number" id="horasExtra" placeholder="0 si no aplica" min="0">
+                <p class="error" id="errorHorasExtra">No puede ser negativo.</p>
+            </div>
+        </div>
 
-  <label for="totalHorasExtra">Total Horas Extra (COP):</label>
-            <input type="number" id="totalHorasExtra" placeholder="0">
-
-  <label for="nivelRiesgo">Nivel de Riesgo ARL:</label>
+        <div class="form-group">
+            <label>NIVEL DE RIESGO</label>
             <select id="nivelRiesgo">
-            <option value="Mínimo">I - Mínimo</option>
-                 <option value="Bajo">II - Bajo</option>
-            <option value="Medio">III - Medio</option>
-            <option value="Alto">IV - Alto</option>
-            <option value="Máximo">V - Máximo</option>
-                </select>
-<br><br>
-            <button type="button" onclick="realizarCalculos()">Calcular Prestaciones</button>
-            </section>
+                <option value="">Seleccione...</option>
+                <option value="Minimo">Mínimo</option>
+                <option value="Bajo">Bajo</option>
+                <option value="Medio">Medio</option>
+                <option value="Alto">Alto</option>
+                <option value="Maximo">Máximo</option>
+            </select>
+            <p class="error" id="errorRiesgo">Seleccione un nivel de riesgo.</p>
+        </div>
 
-<hr>
-    <section id="resultados">
-    <h3>3. Resultados del Cálculo</h3>
-    <div id="pantallaResultados">
-    <p>Complete el formulario para ver los resultados.</p>
-</div>
-            </section>
-            </main>
+        <button class="btn" onclick="calcular()">Calcular Nómina</button>
 
-    <script src="taller.js"></script>
+        <!-- RESULTADO -->
+        <div id="resultadoContainer"></div>
+    </div>
+
+    <script>
+        function mostrarError(id, mostrar) {
+            const el = document.getElementById(id);
+            el.style.display = mostrar ? "block" : "none";
+        }
+
+        function marcarInput(id, error) {
+            const el = document.getElementById(id);
+            if (error) el.classList.add("input-error");
+            else el.classList.remove("input-error");
+        }
+
+        function formatPesos(valor) {
+            return "$" + valor.toLocaleString("es-CO", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function calcular() {
+            // Leer valores
+            const nombreCompleto = document.getElementById("nombreCompleto").value.trim();
+            const edad = parseInt(document.getElementById("edad").value);
+            const tipoDocumento = document.getElementById("tipoDocumento").value;
+            const numeroDocumento = document.getElementById("numeroDocumento").value.trim();
+            const salario = parseFloat(document.getElementById("salario").value);
+            const comisiones = parseFloat(document.getElementById("comisiones").value) || 0;
+            const totalHorasExtra = parseFloat(document.getElementById("horasExtra").value) || 0;
+            const nivelRiesgo = document.getElementById("nivelRiesgo").value;
+
+            // Validaciones
+            let hayError = false;
+
+            const nombreValido = nombreCompleto && /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\s]+$/.test(nombreCompleto);
+            mostrarError("errorNombre", !nombreValido);
+            marcarInput("nombreCompleto", !nombreValido);
+            if (!nombreValido) hayError = true;
+
+            const edadValida = !isNaN(edad) && edad >= 0 && edad <= 100;
+            mostrarError("errorEdad", !edadValida);
+            marcarInput("edad", !edadValida);
+            if (!edadValida) hayError = true;
+
+            const tipoValido = ["RC", "TI", "CC", "CE", "PP"].includes(tipoDocumento);
+            mostrarError("errorTipoDoc", !tipoValido);
+            marcarInput("tipoDocumento", !tipoValido);
+            if (!tipoValido) hayError = true;
+
+            const numDocValido = /^\d{5,15}$/.test(numeroDocumento);
+            mostrarError("errorNumDoc", !numDocValido);
+            marcarInput("numeroDocumento", !numDocValido);
+            if (!numDocValido) hayError = true;
+
+            const salarioValido = !isNaN(salario) && salario > 0;
+            mostrarError("errorSalario", !salarioValido);
+            marcarInput("salario", !salarioValido);
+            if (!salarioValido) hayError = true;
+
+            const comisionesValidas = !isNaN(comisiones) && comisiones >= 0;
+            mostrarError("errorComisiones", !comisionesValidas);
+            marcarInput("comisiones", !comisionesValidas);
+            if (!comisionesValidas) hayError = true;
+
+            const horasValidas = !isNaN(totalHorasExtra) && totalHorasExtra >= 0;
+            mostrarError("errorHorasExtra", !horasValidas);
+            marcarInput("horasExtra", !horasValidas);
+            if (!horasValidas) hayError = true;
+
+            const riesgoValido = ["Minimo", "Bajo", "Medio", "Alto", "Maximo"].includes(nivelRiesgo);
+            mostrarError("errorRiesgo", !riesgoValido);
+            marcarInput("nivelRiesgo", !riesgoValido);
+            if (!riesgoValido) hayError = true;
+
+            if (hayError) {
+                document.getElementById("resultadoContainer").innerHTML = "";
+                return;
+            }
+
+            // ---- LÓGICA ORIGINAL ----
+
+            if (edad < 18) {
+                document.getElementById("resultadoContainer").innerHTML = `
+                    <div class="alerta">⚠️ El usuario es menor de edad y no puede continuar.</div>
+                `;
+                return;
+            }
+
+            if (edad < 25) {
+                document.getElementById("resultadoContainer").innerHTML = `
+                    <div class="alerta">ℹ️ Usuario beneficiario por cotizante.</div>
+                `;
+                return;
+            }
+
+            // CONSTANTES
+            const salarioMinimoLegalVigente = 1750905;
+            const subsidioTransporte = 249095;
+            const UVT = 52.37;
+            const saludPorcentaje = 0.04;
+            const pensionPorcentaje = 0.04;
+            const fondoSolidaridadPorcentaje = 0.01;
+
+            const riesgos = [
+                { nombre: "Minimo", valor: 0.00522 },
+                { nombre: "Bajo",   valor: 0.01044 },
+                { nombre: "Medio",  valor: 0.02436 },
+                { nombre: "Alto",   valor: 0.04350 },
+                { nombre: "Maximo", valor: 0.06960 }
+            ];
+
+            // Auxilio transporte
+            let auxilioTransporte = 0;
+            if (salario <= salarioMinimoLegalVigente * 2) {
+                auxilioTransporte = subsidioTransporte;
+            }
+
+            let totalDevengado = salario + comisiones + totalHorasExtra;
+            let IBC = totalDevengado * 0.70;
+            let salud = IBC * saludPorcentaje;
+            let pension = IBC * pensionPorcentaje;
+
+            let fondoSolidaridad = 0;
+            if (IBC >= salarioMinimoLegalVigente * 4) {
+                fondoSolidaridad = IBC * fondoSolidaridadPorcentaje;
+            }
+
+            let porcentajeARL = 0;
+            for (let i = 0; i < riesgos.length; i++) {
+                if (nivelRiesgo.toLowerCase() === riesgos[i].nombre.toLowerCase()) {
+                    porcentajeARL = riesgos[i].valor;
+                }
+            }
+            let ARL = IBC * porcentajeARL;
+
+            let ingresosNoConstitutivos = salud + pension;
+            let ingresoGravado = totalDevengado - ingresosNoConstitutivos;
+            let ingresoUVT = ingresoGravado / UVT;
+            let retencionFuente = 0;
+
+            if (ingresoUVT > 95 && ingresoUVT <= 150) {
+                retencionFuente = ((ingresoUVT - 95) * 0.19) * UVT;
+            } else if (ingresoUVT > 150 && ingresoUVT <= 360) {
+                retencionFuente = (((ingresoUVT - 150) * 0.28) + 10) * UVT;
+            } else if (ingresoUVT > 360 && ingresoUVT <= 640) {
+                retencionFuente = (((ingresoUVT - 360) * 0.33) + 69) * UVT;
+            } else if (ingresoUVT > 640 && ingresoUVT <= 945) {
+                retencionFuente = (((ingresoUVT - 640) * 0.35) + 162) * UVT;
+            } else if (ingresoUVT > 945 && ingresoUVT <= 2300) {
+                retencionFuente = (((ingresoUVT - 945) * 0.37) + 268) * UVT;
+            } else if (ingresoUVT > 2300) {
+                retencionFuente = (((ingresoUVT - 2300) * 0.39) + 770) * UVT;
+            }
+
+            let totalDeducciones = salud + pension + fondoSolidaridad + ARL + retencionFuente;
+            let totalPagar = totalDevengado + auxilioTransporte - totalDeducciones;
+
+            // ---- RENDERIZAR RESULTADOS ----
+            document.getElementById("resultadoContainer").innerHTML = `
+                <div class="resultados">
+                    <h2>Resultados</h2>
+
+                    <div class="resultado-item">
+                        <span>Nombre</span>
+                        <span>${nombreCompleto}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Documento</span>
+                        <span>${tipoDocumento} ${numeroDocumento}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Salario</span>
+                        <span>${formatPesos(salario)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Auxilio Transporte</span>
+                        <span>${formatPesos(auxilioTransporte)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Total Devengado</span>
+                        <span>${formatPesos(totalDevengado)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>IBC (70%)</span>
+                        <span>${formatPesos(IBC)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Salud (4%)</span>
+                        <span>- ${formatPesos(salud)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Pensión (4%)</span>
+                        <span>- ${formatPesos(pension)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Fondo Solidaridad</span>
+                        <span>- ${formatPesos(fondoSolidaridad)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>ARL (${nivelRiesgo})</span>
+                        <span>- ${formatPesos(ARL)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Retención en la Fuente</span>
+                        <span>- ${formatPesos(retencionFuente)}</span>
+                    </div>
+                    <div class="resultado-item">
+                        <span>Total Deducciones</span>
+                        <span>- ${formatPesos(totalDeducciones)}</span>
+                    </div>
+
+                    <div class="total">
+                        <p>TOTAL A PAGAR</p>
+                        <h1>${formatPesos(totalPagar)}</h1>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
 </html>
